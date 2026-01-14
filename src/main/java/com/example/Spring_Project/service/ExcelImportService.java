@@ -42,7 +42,6 @@ public class ExcelImportService {
 
             em.persist(employeeJobEntity);
             counter[0]++;
-
             if (counter[0] % BATCH_SIZE == 0) {
                 em.flush();
                 em.clear();
