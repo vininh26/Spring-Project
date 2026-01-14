@@ -1,10 +1,12 @@
 package com.example.Spring_Project.entity;
 
+import com.example.Spring_Project.common.AuditField;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
@@ -12,7 +14,7 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefreshTokenEntity {
+public class RefreshTokenEntity extends AuditField {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

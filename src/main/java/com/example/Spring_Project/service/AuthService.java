@@ -7,6 +7,8 @@ import com.example.Spring_Project.model.Dto.User;
 import com.example.Spring_Project.model.Enum.ERole;
 import com.example.Spring_Project.repository.RefreshTokenRepository;
 import com.example.Spring_Project.repository.UserRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -24,18 +27,7 @@ public class AuthService {
     private static final int MAX_FAILED_ATTEMPTS = 5;
     private static final Duration LOCK_DURATION = Duration.ofMinutes(15);
 
-    public AuthService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       JwtUtils jwtUtils,
-                       UserDetailsServiceImpl userDetailsService,
-                       RefreshTokenService refreshTokenService) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtUtils = jwtUtils;
-        this.userDetailsService = userDetailsService;
-        this.refreshTokenService = refreshTokenService;
-    }
-
+    @Transactional
     public void register(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new RuntimeException("Username exists");
@@ -54,6 +46,7 @@ public class AuthService {
         userRepository.save(userEntity);
     }
 
+    @Transactional
     public TokenResponse login(User user) {
         UserEntity userEntity = userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));

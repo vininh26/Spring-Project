@@ -1,19 +1,19 @@
 package com.example.Spring_Project.entity;
 
+import com.example.Spring_Project.common.AuditField;
 import com.example.Spring_Project.model.Enum.ERole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class UserEntity {
+public class UserEntity extends AuditField {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,6 +26,5 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private ERole role;
     private boolean enabled = true;
-    private LocalDateTime createdAt = LocalDateTime.now();
 
 }
