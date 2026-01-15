@@ -11,19 +11,27 @@ import java.io.Serializable;
 @Table(name = "employee_jobs")
 @Data
 @NoArgsConstructor
-public class EmployeeJobEntity extends AuditField {
+public class EmployeeJobEntity extends AuditField implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true, nullable=false)
+    @Column(name = "name")
     private String name;
-    @Column(unique=true, nullable=false)
+    @Column(name = "email")
     private String email;
+    @Column(name = "phone")
     private String phone;
+    @Column(name = "address")
     private String address;
+    @Column(name = "company")
     private String company;
+    @Column(name = "text")
     private String text;
+    @Column(name = "description")
     private String description;
+    @Column(name = "jobTitle")
     private String jobTitle;
 }

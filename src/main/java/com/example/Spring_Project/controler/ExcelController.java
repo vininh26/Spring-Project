@@ -21,7 +21,13 @@ public class ExcelController {
     public ResponseEntity<String> importExcel(
             @RequestParam("file") MultipartFile file) throws Exception {
 
+        long start = System.nanoTime();
+
         excelImportService.importExcel(file);
+        
+        long end = System.nanoTime();
+        long duration = end - start;
+        System.out.println("Thời gian thực thi: " + duration / 1_000_000 + " ms");
         return ResponseEntity.ok("Import success");
     }
 }

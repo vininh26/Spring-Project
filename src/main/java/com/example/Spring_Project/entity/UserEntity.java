@@ -12,7 +12,9 @@ import java.io.Serializable;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-public class UserEntity extends AuditField {
+public class UserEntity extends AuditField implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
