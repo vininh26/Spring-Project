@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
+    private final ImportDataService importDataService;
 
-    @GetMapping("/hello")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String helloAdmin() {
-        return "Hello ADMIN";
+    @GetMapping("/import-data")
+    public String importData() throws Exception {
+        int countCompany = importDataService.importDataCompanyFromJsonFile();
+        return "Total Company Import: " + countCompany;
     }
 }
